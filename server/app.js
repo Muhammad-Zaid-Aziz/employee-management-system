@@ -1,22 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const EmployeeRecord = require("./employeeData");
 const EmployeeCreate = require("./employeeCreate");
 const bodyParser = require("body-parser");
-
-// To parse URL encoded data
-
-// To parse json data
-const cors = require("cors");
 const app = express();
+const port = 8080;
+
+const cors = require("cors");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cors);
-// app.get("/", function (req, res) {
-//   res.send("Hello World");
-// });
-
-app.use("./employeeData", EmployeeCreate);
+//error is here
+// app.use(cors);
 
 mongoose
   .connect(
@@ -27,4 +20,8 @@ mongoose
   })
   .catch((error) => console.log(error));
 
-app.listen(3033, () => console.log("Example app listening on port 3033!"));
+app.get("/", function (req, res) {
+  res.send("Hello World!");
+});
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));

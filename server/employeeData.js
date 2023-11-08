@@ -37,6 +37,6 @@ const schemaEmlpoyee = new mongoose.Schema(
   }
 );
 
-const EmployeeRecord = mongoose.model("employeeRecord", schemaEmlpoyee);
+const EmployeeRecord = mongoose.model("employeeRecords", schemaEmlpoyee);
 // exports.EmployeeData = EmployeeRecord;
 module.exports = EmployeeRecord;

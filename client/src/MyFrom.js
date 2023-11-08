@@ -10,17 +10,17 @@ const MyFrom = () => {
   const [action, setAction] = useState("");
   const handleSubmit = (event) => {
     event.preventDefault();
-    alert(`Employee name: ${name}
-    Id: ${idNo}
-    Phone: ${phone}
-    workingStatus: ${workingStatus}
-    department: ${department}
-    address: ${address}
-    action: ${action}`);
-
-    <table>
-      <th></th>
-    </table>;
+    // alert(`Employee name: ${name}
+    // Id: ${idNo}
+    // Phone: ${phone}
+    // workingStatus: ${workingStatus}
+    // department: ${department}
+    // address: ${address}
+    // action: ${action}`);
+  };
+  const [isShow, setIsShow] = useState(false);
+  const tableFuc = () => {
+    setIsShow(true);
   };
 
   function refreshPage() {
@@ -102,8 +102,41 @@ const MyFrom = () => {
         </label>{" "}
         <br />
         <input type="submit" />
+        <button onClick={tableFuc}>table</button>
       </form>
       <button onClick={refreshPage}>Reset</button>
+
+      <div id="demo">
+        {isShow && (
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Id</th>
+                <th>Phone</th>
+                <th>Status</th>
+                <th>Depart</th>
+                <th>Address</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{name}</td>
+                <td>{idNo}</td>
+                <td>{phone}</td>
+                <td>{workingStatus}</td>
+                <td>{department}</td>
+                <td>{address}</td>
+                <td>
+                  <button>Del</button>
+                  <button>Edit</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        )}
+      </div>
     </Fragment>
   );
 };
