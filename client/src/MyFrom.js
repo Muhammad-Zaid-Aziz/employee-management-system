@@ -1,144 +1,191 @@
-import React, { Fragment, useState } from "react";
-// import ReactDOM from "react-dom/client";
-const MyFrom = () => {
-  const [name, setName] = useState("");
-  const [idNo, setIdNo] = useState("");
-  const [phone, setPhone] = useState("");
-  let [workingStatus, setWorkingStatus] = useState(false);
-  const [department, setDepartment] = useState("");
-  const [address, setAddress] = useState("");
-  const [action, setAction] = useState("");
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // alert(`Employee name: ${name}
-    // Id: ${idNo}
-    // Phone: ${phone}
-    // workingStatus: ${workingStatus}
-    // department: ${department}
-    // address: ${address}
-    // action: ${action}`);
-  };
-  const [isShow, setIsShow] = useState(false);
-  const tableFuc = () => {
-    setIsShow(true);
+import React, { useState } from "react";
+
+const MyForm = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    idNo: "",
+    phone: "",
+    workingStatus: false,
+    department: "",
+    address: "",
+    action: "",
+  });
+
+  const [users, setUsers] = useState([]);
+  const [selectedUserIndex, setSelectedUserIndex] = useState(null);
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    // Handle checkbox separately due to its boolean nature
+    const newValue = type === "checkbox" ? checked : value;
+    // callback function which
+    setFormData((prevData) => ({
+      ...prevData, // spread operators
+      [name]: newValue, // dynamically adds a new key-value pair
+    }));
   };
 
-  function refreshPage() {
-    return window.location.reload(false);
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (selectedUserIndex === null) {
+      // Create a new user object
+      const newUser = { ...formData };
+
+      // Update the users state with the new user
+      setUsers([...users, newUser]);
+    } else {
+      // Update existing user data
+      const updatedUsers = [...users];
+      updatedUsers[selectedUserIndex] = formData;
+      setUsers(updatedUsers);
+
+      // Reset the selectedUserIndex after updating
+      setSelectedUserIndex(null);
+    }
+
+    // Clear the form fields
+    setFormData({
+      name: "",
+      idNo: "",
+      phone: "",
+      workingStatus: false,
+      department: "",
+      address: "",
+      action: "",
+    });
+  };
+
+  const handleDelete = (index) => {
+    // Remove the user at the specified index
+    const updatedUsers = [...users];
+    updatedUsers.splice(index, 1);
+    setUsers(updatedUsers);
+  };
+
+  const handleUpdate = (index) => {
+    // Set the form data to the selected user for updating
+    const selectedUser = users[index];
+    setFormData({ ...selectedUser });
+
+    // Set the selected user index for tracking during update
+    setSelectedUserIndex(index);
+  };
 
   return (
-    <Fragment>
-      <form onSubmit={handleSubmit}>
+    <div className="container">
+      <form onSubmit={handleSubmit} className="formData">
         <label>
           Name:
           <input
             type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
           />
-        </label>{" "}
+        </label>
         <br />
         <label>
           ID:
           <input
             type="text"
-            value={idNo}
-            onChange={(e) => setIdNo(e.target.value)}
+            name="idNo"
+            value={formData.idNo}
+            onChange={handleChange}
           />
-        </label>{" "}
+        </label>
         <br />
         <label>
-          PHONE:
+          Phone:
           <input
             type="text"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
           />
-        </label>{" "}
+        </label>
         <br />
         <label>
-          WORKING STATUS:
+          Working Status:
           <input
             type="checkbox"
-            defaultChecked={workingStatus}
-            //   value={workingStatus}
-            onChange={(e) => setWorkingStatus(!workingStatus)}
+            name="workingStatus"
+            checked={formData.workingStatus}
+            onChange={handleChange}
           />
-        </label>{" "}
+        </label>
         <br />
         <label>
-          SELECT DEPARTMENT:
+          Department:
           <select
-            value={department}
-            onChange={(e) => setDepartment(e.target.value)}
+            name="department"
+            value={formData.department}
+            onChange={handleChange}
           >
-            <option value=""></option>
-            <option value="None of them">None of them</option>
+            <option value="">Select Department</option>
+
             <option value="Computer Science">Computer Science</option>
             <option value="Mechanical Engineering">
               Mechanical Engineering
             </option>
             <option value="Chemical Engineering">Chemical Engineering</option>
+            <option value="Chemical Engineering">Electrical Engineering</option>
+            <option value="Chemical Engineering">Civil Engineering</option>
+            <option value="None of them">None of them</option>
           </select>
-        </label>{" "}
-        <br />
-        <label>
-          ADDRESS:
-          <input
-            type="text"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-          />{" "}
-          <br />
         </label>
+
+        <br />
         <label>
-          ACTION:
+          Address:
           <input
             type="text"
-            value={action}
-            onChange={(e) => setAction(e.target.value)}
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
           />
-        </label>{" "}
+        </label>
         <br />
-        <input type="submit" />
-        <button onClick={tableFuc}>table</button>
+        <button type="submit">
+          {selectedUserIndex !== null ? "Update" : "Submit"}
+        </button>
       </form>
-      <button onClick={refreshPage}>Reset</button>
 
-      <div id="demo">
-        {isShow && (
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Id</th>
-                <th>Phone</th>
-                <th>Status</th>
-                <th>Depart</th>
-                <th>Address</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{name}</td>
-                <td>{idNo}</td>
-                <td>{phone}</td>
-                <td>{workingStatus}</td>
-                <td>{department}</td>
-                <td>{address}</td>
-                <td>
-                  <button>Del</button>
-                  <button>Edit</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        )}
-      </div>
-    </Fragment>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Sr</th>
+            <th>Name</th>
+            <th>ID</th>
+            <th>Phone</th>
+            <th>Status</th>
+            <th>Department</th>
+            <th>Address</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user, index) => (
+            <tr key={index}>
+              <td>{index + 1}</td>
+              <td>{user.name}</td>
+              <td>{user.idNo}</td>
+              <td>{user.phone}</td>
+              <td>{user.workingStatus ? "Active" : "Inactive"}</td>
+              <td>{user.department}</td>
+              <td>{user.address}</td>
+              <td>
+                {user.action}{" "}
+                <button onClick={() => handleUpdate(index)}>Update</button>{" "}
+                <button onClick={() => handleDelete(index)}>Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
-export default MyFrom;
+export default MyForm;

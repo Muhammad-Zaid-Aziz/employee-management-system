@@ -1,13 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
-// const asyncHandler = require("express-async-handler");
 const EmployeeRecord = require("./employeeData");
 
 const route = express.Router();
-
-// @desc Create new product
-// @route POST /product
-// @access Private
 const createEmployee = async (req, res) => {
   console.log(req);
   const employeeData = req.body;
@@ -41,7 +36,7 @@ const createEmployee = async (req, res) => {
   }
 };
 
-console.log("inisde");
+console.log("inside");
 
 route.post("/", createEmployee);
 
