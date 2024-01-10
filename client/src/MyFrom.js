@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { Navbar, Nav, Button, layout } from "react-bootstrap";
 const MyForm = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -74,7 +74,7 @@ const MyForm = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container FormGroup">
       <form onSubmit={handleSubmit} className="formData">
         <label>
           Name:
@@ -178,7 +178,9 @@ const MyForm = () => {
               <td>
                 {user.action}{" "}
                 <button onClick={() => handleUpdate(index)}>Update</button>{" "}
-                <button onClick={() => handleDelete(index)}>Delete</button>
+                <button id="btn-delete" onClick={() => handleDelete(index)}>
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
