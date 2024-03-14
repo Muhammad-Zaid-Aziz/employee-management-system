@@ -5,7 +5,7 @@
 
 .form {
   margin-bottom: 20px;
-  width: 100%;
+  width: 50%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -15,7 +15,7 @@
 }
 
 table {
-  width: 100%;
+  width: 50%;
   border-collapse: collapse;
   margin-top: 20px;
 }
@@ -51,4 +51,51 @@ button:active {
 }
 #btn-delete:hover {
   background-color: red;
+}
+
+/* Styles for form container */
+/* .FormGroup {
+  width: 100px;
+  
+} */
+
+/* Styles for form fields */
+.formData input[type="text"],
+.formData input[type="email"],
+.formData input[type="password"],
+.formData textarea,
+.formData select {
+  width: 50%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #d71919;
+  border-radius: 4px;
+  /* box-sizing: border-box; */
+}
+
+/* Style for submit button */
+.formData input[type="submit"] {
+  background-color: #4caf50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.formData input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+/* Styles for form labels */
+.formData label {
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* Styles for form validation/error messages */
+.error-message {
+  color: red;
+  font-size: 0.9em;
 }

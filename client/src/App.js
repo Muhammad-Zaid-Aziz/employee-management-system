@@ -8,7 +8,7 @@ function App() {
   //code 1
   return (
     <div>
-      <Appbar />
+      {/* <Appbar /> */}
       <MyForm />
       {/* <BasicTable/> */}
     </div>

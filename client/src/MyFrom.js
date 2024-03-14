@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Navbar, Nav, Button, layout } from "react-bootstrap";
+<div class="split left">
+  
 const MyForm = () => {
   const [formData, setFormData] = useState({
     name: "",
